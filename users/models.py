@@ -2,25 +2,28 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-
 class User(AbstractUser):
     username = None
     email = models.EmailField(unique=True, verbose_name="Email")
     first_name = models.CharField(
-            max_length=50,
-            verbose_name="Имя",
-            blank=True,
-            null=True,
-            help_text="Введите ваше имя",
-        )
+        max_length=50,
+        verbose_name="Имя",
+        blank=True,
+        null=True,
+        help_text="Введите ваше имя",
+    )
     last_name = models.CharField(
-            max_length=50,
-            verbose_name="Фамилия",
-            blank=True,
-            null=True,
-            help_text="Введите вашу фамилию",
-        )
-    image = models.ImageField(upload_to='photos/', verbose_name='Аватарка', help_text="Загрузите Вашу аватарку")
+        max_length=50,
+        verbose_name="Фамилия",
+        blank=True,
+        null=True,
+        help_text="Введите вашу фамилию",
+    )
+    image = models.ImageField(
+        upload_to="photos/",
+        verbose_name="Аватарка",
+        help_text="Загрузите Вашу аватарку",
+    )
 
     USER = "Пользователь"
     ADMIN = "Администратор"

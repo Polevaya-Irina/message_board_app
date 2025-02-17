@@ -1,17 +1,25 @@
 # from django_filters.rest_framework import DjangoFilterBackend
 # from rest_framework.filters import OrderingFilter
 from django.contrib.auth.tokens import default_token_generator
-from rest_framework.generics import (CreateAPIView, DestroyAPIView,
-                                     ListAPIView, RetrieveAPIView,
-                                     UpdateAPIView)
+from rest_framework.generics import (
+    CreateAPIView,
+    DestroyAPIView,
+    ListAPIView,
+    RetrieveAPIView,
+    UpdateAPIView,
+)
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from users.models import User
-from users.serializers import UserSerializer, ResetPasswordSerializer, ResetPasswordConfirmSerializer
-from users.services import send_password_reset_email, create_new_password
-from users.permissions import IsTheUser, IsAdmin
+from users.permissions import IsAdmin, IsTheUser
+from users.serializers import (
+    ResetPasswordConfirmSerializer,
+    ResetPasswordSerializer,
+    UserSerializer,
+)
+from users.services import create_new_password, send_password_reset_email
 
 
 class UserListAPIView(ListAPIView):
@@ -50,7 +58,8 @@ class UserDestroyAPIView(DestroyAPIView):
 
 
 class EmailPasswordReset(APIView):
-    """ View for sending email to change password """
+    """View for sending email to change password"""
+
     serializer_class = ResetPasswordSerializer
     permission_classes = (AllowAny,)
 
@@ -76,4 +85,8 @@ class PasswordReset(APIView):
             response = create_new_password(user, new_password)
             return Response({"message": response})
         else:
-            return Response({"message": "Something went wrong. Try again or contact admin for more information"})
+            return Response(
+                {
+                    "message": "Something went wrong. Try again or contact admin for more information"
+                }
+            )

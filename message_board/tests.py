@@ -2,8 +2,8 @@ from datetime import date
 
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.test import APITestCase
 from rest_framework.fields import DateField
+from rest_framework.test import APITestCase
 
 from message_board.models import Ad, Comment
 from users.models import User
@@ -75,7 +75,7 @@ class AdTestCase(APITestCase):
                     "price": 100,
                     "created_at": drf_str_datetime(self.ad.created_at),
                     "author": self.user.id,
-                    "comment_list": []
+                    "comment_list": [],
                 }
             ],
         }

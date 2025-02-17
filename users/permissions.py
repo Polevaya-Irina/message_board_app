@@ -2,7 +2,7 @@ from rest_framework import permissions
 
 
 class IsOwner(permissions.BasePermission):
-    """ Checks if user is an owner """
+    """Checks if user is an owner"""
 
     def has_object_permission(self, request, view, obj):
         if obj.author == request.user:
@@ -11,12 +11,13 @@ class IsOwner(permissions.BasePermission):
 
 
 class IsTheUser(permissions.BasePermission):
-    """ Checks if the user is the user(owner) to retrieve and update own profile"""
+    """Checks if the user is the user(owner) to retrieve and update own profile"""
 
     def has_object_permission(self, request, view, obj):
         if request.user == obj:
             return True
         return False
+
 
 """
     def has_obj_permission(self, request, view, obj):
@@ -30,7 +31,7 @@ class IsTheUser(permissions.BasePermission):
 
 
 class IsAdmin(permissions.BasePermission):
-    """ Checks if user is an admin """
+    """Checks if user is an admin"""
 
     def has_permission(self, request, view):
         if request.user.role == "Администратор":

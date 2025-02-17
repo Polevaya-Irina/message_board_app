@@ -3,14 +3,17 @@ from django.urls import reverse
 from rest_framework import status
 
 from message_board.models import Comment
-from users.tests.conftest import (admin_fixture, api_client, user_fixture,
-                                  user_isowner_fixture)
-from message_board.tests.conftest import comment_fixture, comment1_fixture, ad_fixture
+from users.tests.conftest import (
+    admin_fixture,
+    api_client,
+    user_fixture,
+    user_isowner_fixture,
+)
 
 
 @pytest.mark.django_db
 def test_comment_create(api_client, ad_fixture, user_fixture):
-    """ Test for creating new comment"""
+    """Test for creating new comment"""
 
     url = reverse("message_board:comment_create")
     data = {"text": "Test text", "ad": ad_fixture.pk}
@@ -26,9 +29,12 @@ def test_comment_create(api_client, ad_fixture, user_fixture):
     assert Comment.objects.count() == 1
     assert Comment.objects.first().author == user_fixture
 
+
 @pytest.mark.django_db
-def test_comment_update(api_client, comment_fixture, user_fixture, user_isowner_fixture, admin_fixture):
-    """ Tests for updating comment """
+def test_comment_update(
+    api_client, comment_fixture, user_fixture, user_isowner_fixture, admin_fixture
+):
+    """Tests for updating comment"""
 
     url = reverse("message_board:comment_update", kwargs={"pk": comment_fixture.pk})
     data = {"text": "New test text"}
@@ -56,8 +62,15 @@ def test_comment_update(api_client, comment_fixture, user_fixture, user_isowner_
 
 
 @pytest.mark.django_db
-def test_comment_delete(api_client, comment_fixture, comment1_fixture, user_fixture, user_isowner_fixture, admin_fixture, ):
-    """ Tests for deleting comment """
+def test_comment_delete(
+    api_client,
+    comment_fixture,
+    comment1_fixture,
+    user_fixture,
+    user_isowner_fixture,
+    admin_fixture,
+):
+    """Tests for deleting comment"""
 
     url = reverse("message_board:comment_delete", kwargs={"pk": comment_fixture.pk})
     url1 = reverse("message_board:comment_delete", kwargs={"pk": comment1_fixture.pk})

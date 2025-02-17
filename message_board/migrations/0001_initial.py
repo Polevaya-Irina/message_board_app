@@ -15,32 +15,113 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Ad',
+            name="Ad",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(help_text='Введите название товара', max_length=100, verbose_name='Название товара')),
-                ('description', models.TextField(help_text='Введите описание товара', verbose_name='Описание товара')),
-                ('created_at', models.DateField(auto_now_add=True, verbose_name='Время и дата создания объявления')),
-                ('price', models.PositiveSmallIntegerField(help_text='Укажите цену товара', verbose_name='Цена товара')),
-                ('author', models.ForeignKey(blank=True, help_text='Укажите автора объявления', null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Автор')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        help_text="Введите название товара",
+                        max_length=100,
+                        verbose_name="Название товара",
+                    ),
+                ),
+                (
+                    "description",
+                    models.TextField(
+                        help_text="Введите описание товара",
+                        verbose_name="Описание товара",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateField(
+                        auto_now_add=True,
+                        verbose_name="Время и дата создания объявления",
+                    ),
+                ),
+                (
+                    "price",
+                    models.PositiveSmallIntegerField(
+                        help_text="Укажите цену товара", verbose_name="Цена товара"
+                    ),
+                ),
+                (
+                    "author",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="Укажите автора объявления",
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Автор",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Объявление',
-                'verbose_name_plural': 'Объявления',
+                "verbose_name": "Объявление",
+                "verbose_name_plural": "Объявления",
             },
         ),
         migrations.CreateModel(
-            name='Comment',
+            name="Comment",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.TextField(blank=True, help_text='Введите текст отзыва', null=True, verbose_name='Текст отзыва')),
-                ('created_at', models.DateField(auto_now_add=True, verbose_name='Время и дата создания объявления')),
-                ('ad', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='message_board.ad', verbose_name='Объявление')),
-                ('author', models.ForeignKey(blank=True, help_text='Укажите автора комментария', null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Автор комментария')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "text",
+                    models.TextField(
+                        blank=True,
+                        help_text="Введите текст отзыва",
+                        null=True,
+                        verbose_name="Текст отзыва",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateField(
+                        auto_now_add=True,
+                        verbose_name="Время и дата создания объявления",
+                    ),
+                ),
+                (
+                    "ad",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="message_board.ad",
+                        verbose_name="Объявление",
+                    ),
+                ),
+                (
+                    "author",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="Укажите автора комментария",
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Автор комментария",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Отзыв',
-                'verbose_name_plural': 'Отзывы',
+                "verbose_name": "Отзыв",
+                "verbose_name_plural": "Отзывы",
             },
         ),
     ]

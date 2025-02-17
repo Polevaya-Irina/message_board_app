@@ -5,7 +5,8 @@ from .models import User
 
 
 class UserSerializer(ModelSerializer):
-    """ Serializer for User model for CRUD """
+    """Serializer for User model for CRUD"""
+
     # inner_id = serializers.IntegerField()
     class Meta:
         model = User
@@ -13,13 +14,13 @@ class UserSerializer(ModelSerializer):
 
 
 class ResetPasswordSerializer(serializers.Serializer):
-    """ Serializer for sending email to change password """
+    """Serializer for sending email to change password"""
 
     email = serializers.EmailField(required=True)
 
 
 class ResetPasswordConfirmSerializer(serializers.Serializer):
-    """ Serializer for changing password """
+    """Serializer for changing password"""
 
     # user_id = serializers.IntegerField(required=True)
     # token = serializers.CharField(required=True)

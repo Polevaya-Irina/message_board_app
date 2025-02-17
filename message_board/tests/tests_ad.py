@@ -3,14 +3,17 @@ from django.urls import reverse
 from rest_framework import status
 
 from message_board.models import Ad
-from users.tests.conftest import (admin_fixture, api_client, user_fixture,
-                                  user_isowner_fixture)
-from message_board.tests.conftest import ad_fixture, ad1_fixture, comment_fixture
+from users.tests.conftest import (
+    admin_fixture,
+    api_client,
+    user_fixture,
+    user_isowner_fixture,
+)
 
 
 @pytest.mark.django_db
 def test_ad_create(api_client, user_fixture):
-    """ Test for creating new ad"""
+    """Test for creating new ad"""
 
     url = reverse("message_board:ad_create")
     data = {"title": "Test title", "description": "Test description", "price": 100}
@@ -29,30 +32,32 @@ def test_ad_create(api_client, user_fixture):
 
 @pytest.mark.django_db
 def test_ad_list(api_client, ad_fixture, user_fixture, admin_fixture):
-    """ Tests for ads list endpoint"""
+    """Tests for ads list endpoint"""
 
     url = reverse("message_board:ad_list")
     response = api_client.get(url)
 
     assert response.status_code == status.HTTP_200_OK
-    assert response.json()['count'] == 1
+    assert response.json()["count"] == 1
 
     api_client.force_authenticate(user_fixture)
     response = api_client.get(url)
 
     assert response.status_code == status.HTTP_200_OK
-    assert response.json()['count'] == 1
+    assert response.json()["count"] == 1
 
     api_client.force_authenticate(admin_fixture)
     response = api_client.get(url)
 
     assert response.status_code == status.HTTP_200_OK
-    assert response.json()['count'] == 1
+    assert response.json()["count"] == 1
 
 
 @pytest.mark.django_db
-def test_ad_retrieve(api_client, ad_fixture, user_fixture, admin_fixture, user_isowner_fixture):
-    """ Tests for detailed info of one ad """
+def test_ad_retrieve(
+    api_client, ad_fixture, user_fixture, admin_fixture, user_isowner_fixture
+):
+    """Tests for detailed info of one ad"""
 
     url = reverse("message_board:ad_detail", kwargs={"pk": ad_fixture.pk})
 
@@ -80,8 +85,10 @@ def test_ad_retrieve(api_client, ad_fixture, user_fixture, admin_fixture, user_i
 
 
 @pytest.mark.django_db
-def test_ad_update(api_client, ad_fixture, user_fixture, user_isowner_fixture, admin_fixture):
-    """ Tests for updating ad """
+def test_ad_update(
+    api_client, ad_fixture, user_fixture, user_isowner_fixture, admin_fixture
+):
+    """Tests for updating ad"""
 
     url = reverse("message_board:ad_update", kwargs={"pk": ad_fixture.pk})
     data = {"title": "New cup"}
@@ -109,8 +116,15 @@ def test_ad_update(api_client, ad_fixture, user_fixture, user_isowner_fixture, a
 
 
 @pytest.mark.django_db
-def test_ad_delete(api_client, ad_fixture, ad1_fixture, user_fixture, user_isowner_fixture, admin_fixture, ):
-    """ Tests for deleting ad """
+def test_ad_delete(
+    api_client,
+    ad_fixture,
+    ad1_fixture,
+    user_fixture,
+    user_isowner_fixture,
+    admin_fixture,
+):
+    """Tests for deleting ad"""
 
     url = reverse("message_board:ad_delete", kwargs={"pk": ad_fixture.pk})
     url1 = reverse("message_board:ad_delete", kwargs={"pk": ad1_fixture.pk})
@@ -138,8 +152,15 @@ def test_ad_delete(api_client, ad_fixture, ad1_fixture, user_fixture, user_isown
 
 
 @pytest.mark.django_db
-def test_ad_comment_list(api_client, ad_fixture, comment_fixture, comment1_fixture, user_fixture, admin_fixture):
-    """ Tests for list of comments for one ad"""
+def test_ad_comment_list(
+    api_client,
+    ad_fixture,
+    comment_fixture,
+    comment1_fixture,
+    user_fixture,
+    admin_fixture,
+):
+    """Tests for list of comments for one ad"""
 
     url = reverse("message_board:ad_comment_list", kwargs={"pk": ad_fixture.pk})
     response = api_client.get(url)
@@ -150,10 +171,10 @@ def test_ad_comment_list(api_client, ad_fixture, comment_fixture, comment1_fixtu
     response = api_client.get(url)
 
     assert response.status_code == status.HTTP_200_OK
-    assert response.json()['count'] == 2
+    assert response.json()["count"] == 2
 
     api_client.force_authenticate(admin_fixture)
     response = api_client.get(url)
 
     assert response.status_code == status.HTTP_200_OK
-    assert response.json()['count'] == 2
+    assert response.json()["count"] == 2

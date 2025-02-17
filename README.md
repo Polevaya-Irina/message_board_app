@@ -26,6 +26,16 @@ python manage.py runserver
 ```
 5. Через Postman регистрируйте пользователей, добавляйте объявления и отзывы
 
+## Запуск через Docker
+1. Утановите и откройте программу Docker Desktop: 
+```
+https://www.docker.com/products/docker-desktop/
+```
+2. Запустите в терминале команду:
+```
+docker-compose up -d --build
+```
+
 ## Документация и структура проекта:
 Ознакомиться с моделями и эндпоинтами можно на страницах
 [swagger](http://localhost:8000/swagger/) и [redoc](http://localhost:8000/redoc/)

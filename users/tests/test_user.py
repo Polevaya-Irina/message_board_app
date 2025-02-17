@@ -4,12 +4,11 @@ from django.urls import reverse
 from rest_framework import status
 
 from users.models import User
-from users.tests.conftest import api_client, user_fixture, admin_fixture, user_isowner_fixture
 
 
 @pytest.mark.django_db
 def test_user_create(client):
-    """ Test for creating new user"""
+    """Test for creating new user"""
 
     url = reverse("users:register")
     data = {"email": "second_user@test.ru", "password": "second_user"}
@@ -22,7 +21,7 @@ def test_user_create(client):
 
 @pytest.mark.django_db
 def test_user_list(api_client, user_fixture, admin_fixture):
-    """ Tests for users list endpoint"""
+    """Tests for users list endpoint"""
 
     url = reverse("users:user_list")
     response = api_client.get(url)
@@ -44,7 +43,7 @@ def test_user_list(api_client, user_fixture, admin_fixture):
 
 @pytest.mark.django_db
 def test_user_retrieve(api_client, user_fixture, admin_fixture, user_isowner_fixture):
-    """ Tests for detailed info of one user """
+    """Tests for detailed info of one user"""
 
     url = reverse("users:user_detail", kwargs={"pk": user_isowner_fixture.pk})
 
@@ -72,7 +71,7 @@ def test_user_retrieve(api_client, user_fixture, admin_fixture, user_isowner_fix
 
 @pytest.mark.django_db
 def test_user_update(api_client, user_fixture, user_isowner_fixture, admin_fixture):
-    """ Tests for updating user """
+    """Tests for updating user"""
 
     url = reverse("users:user_update", kwargs={"pk": user_isowner_fixture.pk})
     data = {"first_name": "Testname"}
@@ -102,7 +101,7 @@ def test_user_update(api_client, user_fixture, user_isowner_fixture, admin_fixtu
 
 @pytest.mark.django_db
 def test_user_delete(api_client, user_fixture, user_isowner_fixture, admin_fixture):
-    """ Tests for deleting user"""
+    """Tests for deleting user"""
 
     url = reverse("users:user_delete", kwargs={"pk": user_isowner_fixture.pk})
 
@@ -129,7 +128,7 @@ def test_user_delete(api_client, user_fixture, user_isowner_fixture, admin_fixtu
 
 @pytest.mark.django_db
 def test_user_reset_password(user_fixture, api_client):
-    """ Testing email password reset endpoint """
+    """Testing email password reset endpoint"""
 
     url = reverse("users:password_reset")
     data = {"email": user_fixture.email}
@@ -138,12 +137,15 @@ def test_user_reset_password(user_fixture, api_client):
     print(response)
 
     assert response.status_code == status.HTTP_200_OK
-    assert response.json()["message"] == f"Password reset email was sent to {user_fixture.email}."
+    assert (
+        response.json()["message"]
+        == f"Password reset email was sent to {user_fixture.email}."
+    )
 
 
 @pytest.mark.django_db
 def test_user_reset_password_confirm(user_fixture, api_client):
-    """ Testing password reset endpoint """
+    """Testing password reset endpoint"""
 
     token = default_token_generator.make_token(user_fixture)
     url = reverse("users:new_password", kwargs={"pk": user_fixture.pk, "token": token})

@@ -2,8 +2,8 @@ from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from message_board.models import Ad, Comment
-# from message_board.validators import validate_source
 
+# from message_board.validators import validate_source
 
 
 class CommentSerializer(serializers.ModelSerializer):

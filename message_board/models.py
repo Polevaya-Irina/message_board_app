@@ -45,9 +45,7 @@ class Comment(models.Model):
         verbose_name="Текст отзыва",
         help_text="Введите текст отзыва",
     )
-    ad = models.ForeignKey(
-        Ad, on_delete=models.CASCADE, verbose_name="Объявление"
-    )
+    ad = models.ForeignKey(Ad, on_delete=models.CASCADE, verbose_name="Объявление")
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
