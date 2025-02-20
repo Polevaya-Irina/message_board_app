@@ -77,8 +77,8 @@ class PasswordReset(APIView):
     serializer = ResetPasswordConfirmSerializer
     permission_classes = (AllowAny,)
 
-    def post(self, request, pk, token):
-        user = User.objects.get(pk=pk)
+    def post(self, request, uid, token):
+        user = User.objects.get(uid=uid)
         verify_user = default_token_generator.check_token(user, token)
         new_password = request.data["new_password"]
         if verify_user is True:

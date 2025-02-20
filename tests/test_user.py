@@ -148,7 +148,7 @@ def test_user_reset_password_confirm(user_fixture, api_client):
     """Testing password reset endpoint"""
 
     token = default_token_generator.make_token(user_fixture)
-    url = reverse("users:new_password", kwargs={"pk": user_fixture.pk, "token": token})
+    url = reverse("users:new_password", kwargs={"uid": user_fixture.uid, "token": token})
     data = {
         "new_password": "NewPassword",
     }

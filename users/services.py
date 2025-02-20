@@ -11,7 +11,7 @@ def send_password_reset_email(user_email):
     if user.is_active:
         token = default_token_generator.make_token(user)
         url = HOST_URL
-        message = f"Для восстановления доступа к аккаунту перейдите по ссылке: {url}/users/reset_password_confirm/{user.uid}/{token}"
+        message = f"Для восстановления доступа к аккаунту перейдите по ссылке: {url}/users/reset_password_confirm/{user.uid}/{token}/"
         send_mail(
             "Восстановление доступа к аккаунту", message, EMAIL_HOST_USER, [user_email]
         )

@@ -34,7 +34,7 @@ urlpatterns = [
     path("<int:pk>/delete/", UserDestroyAPIView.as_view(), name="user_delete"),
     path("reset_password/", EmailPasswordReset.as_view(), name="password_reset"),
     path(
-        "reset_password_confirm/<int:pk>/<str:token>/",
+        "reset_password_confirm/<str:uid>/<str:token>/",
         PasswordReset.as_view(),
         name="new_password",
     ),
