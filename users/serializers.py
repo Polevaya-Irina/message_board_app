@@ -7,10 +7,9 @@ from .models import User
 class UserSerializer(ModelSerializer):
     """Serializer for User model for CRUD"""
 
-    # inner_id = serializers.IntegerField()
     class Meta:
         model = User
-        fields = ["id", "email", "first_name", "last_name", "role"]
+        fields = ["id", "email", "password", "first_name", "last_name", "role"]
 
 
 class ResetPasswordSerializer(serializers.Serializer):

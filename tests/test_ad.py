@@ -3,12 +3,6 @@ from django.urls import reverse
 from rest_framework import status
 
 from message_board.models import Ad
-from users.tests.conftest import (
-    admin_fixture,
-    api_client,
-    user_fixture,
-    user_isowner_fixture,
-)
 
 
 @pytest.mark.django_db
