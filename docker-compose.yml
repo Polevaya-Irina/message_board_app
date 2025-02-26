@@ -2,13 +2,15 @@ services:
   web:
     build: .
     command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    tty: true
     volumes:
       - .:/app
       - ./static:/app/static
     ports:
       - '8000:8000'
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     env_file:
       - ./.env
 
@@ -17,13 +19,11 @@ services:
     restart: on-failure
     ports:
       - '5432:5432'
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
     env_file:
       - .env
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}" ]
-      interval: 30s
+      interval: 5s
       timeout: 10s
       retries: 5
 

@@ -18,7 +18,7 @@ class AdSerializer(ModelSerializer):
 
     def get_comment_list(self, ad):
         comments = Comment.objects.filter(ad=ad)
-        return [comment.id for comment in comments]
+        return [comment.id and comment.text for comment in comments]
 
     class Meta:
         model = Ad
